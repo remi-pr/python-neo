@@ -331,6 +331,14 @@ class BaseFromRaw(BaseIO):
                 ind_abs = channel_indexes[ind_within]
                 groups[i] = (ind_within, ind_abs)
 
+        elif signal_group_mode == 'group-by-same-gain':
+            all_gains = np.unique(channels['gain'])
+
+            for i, gain in enumerate(all_gains):
+                ind_within, = np.nonzero(channels['gain'] == gain)
+                ind_abs = channel_indexes[ind_within]
+                groups[i] = (ind_within, ind_abs)
+
         elif signal_group_mode == 'split-all':
             for i, chan_index in enumerate(channel_indexes):
                 ind_within = [i]
